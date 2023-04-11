@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>BlazorTerminal</title>
+    <base href="/" />
+
+    <link href="css/terminal.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/Modal.css" rel="stylesheet"/>
+    <script src="scripts/script.js"></script>
+
+    <style>
+        ::selection {
+            background-color: green;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">Loading...</div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="scripts/winbox.bundle.js"></script>
+
+
+    <script>MyDOMGetBoundingClientRect = (element, parm) => { return element.getBoundingClientRect(); };</script>
+
+</body>
+
+</html>
+

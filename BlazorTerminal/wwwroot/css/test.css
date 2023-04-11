@@ -1,0 +1,18 @@
+body {
+    background-color: green;
+}
+
+.tt::selection {
+    background-color: yellow;
+    color: green;
+}
+
+.terminal::selection {
+    background-color: yellow;
+    color: red;
+}
+
+.cmd::selection {
+    background-color: green;
+    color: red;
+}

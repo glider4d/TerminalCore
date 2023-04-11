@@ -1,0 +1,172 @@
+﻿@page "/"
+@using System.Globalization
+@using BlazorTerminal.Services;
+@using BlazorTerminal.Tools
+@using Figgle
+@inherits IndexComponent;
+
+<!--
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+-->
+
+  <div   style="z-index:1000;" @onclick="Click">
+
+
+      <div id="terminal"  class="terminal">
+                                                           
+          <div class="terminal-scroller">
+              <div class="terminal-wrapper">
+ <div class="section__cube show-right">
+      <div class="face cube-face-front terminal terminal-scroller terminal-wrapper">
+        <div class="crop">1 Lo2rem ipsum dolor sit Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo illo ullam eum odit porro in alias repellendus voluptatem beatae sit. 
+
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ipsum maiores sunt officiis facere illum numquam expedita magnam nisi modi.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, beatae. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo officia at, woefkweokqminus magnam quidem expedita sed enim quos distinctio exercitationem.
+
+        </div>​
+
+      </div>  
+      <div class="face cube-face-right terminal terminal-scroller terminal-wrapper ">
+            <div class="crop">
+                B123213
+            </div>
+      </div>  
+      <div class="face cube-face-bottom terminal terminal-scroller terminal-wrapper">
+        C
+      </div>  
+      <div class="face cube-face-left terminal terminal-scroller terminal-wrapper">
+        <div class="crop">
+            Dwelfp
+        </div>
+      </div>  
+      <div class="face cube-face-top terminal terminal-scroller terminal-wrapper">
+        E
+      </div>  
+      <div class="face cube-face-back terminal terminal-scroller terminal-wrapper">
+        F
+      </div>  
+
+    </div>
+      <!--
+    <div id="terminal" class="terminal">
+      <div class="terminal-scroller">
+        <div class="terminal-wrapper">
+ -->
+          <div class="terminal-output" role="log">
+ 
+
+
+                    <div data-index="0" role="presentation" aria-hidden="true">
+                        @{
+                            string[]  s = HtmlConvertString.TerminalStringToHtml(FiggleFonts.Alligator2.Render("Super Visor")).Split("<br>");
+                            foreach(var item in s ){
+                                                                                                                <div style="width: 100%;"><span >@item</span></div>
+                            }
+                        }
+                        @{
+                            string[] s2 = HtmlConvertString.TerminalStringToHtml(FiggleFonts.RedPhoenix.Render("Super Visor")).Split("<br>");
+                            foreach (var item in s2)
+                            {
+                                                                                                                <div style="width: 100%;"><span>@item</span></div>
+                            }
+                        }
+                        
+            </div>
+            <div>
+                        <iframe width="420" height="315" src="https://www.youtube.com/embed/PZOvZZilZko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="420" height="315" src="https://www.youtube.com/embed/lyUwn-e6Kac" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="420" height="315"
+                                src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1">
+                        </iframe>
+                        <iframe width="420" height="315"
+                                src="https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1">
+                        </iframe>
+                        <iframe width="420" height="315"
+                                src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0">
+                        </iframe>
+            </div>
+            
+            
+ 
+          </div>
+          <div class="cmd" style="width: 100%;  ">
+              <div class=" cmd-wrapper">
+            <!--<div class="cmd-wrapper" style="">-->
+               @*
+                @foreach(var item in commands)
+                        {
+                            <div>@preCommandLine@item</div>
+                        } *@
+                @foreach (var item in outLines)
+                {
+                  <div>@((MarkupString)(item??""))</div>
+                }
+                        @*
+                @for(int i = 0; i < commands.Count; i++){
+                  <div>@preCommandLine@commands[i]</div>
+                  if(i < commandsOutResult.Count){
+                   <div>@commandsOutResult[i]</div>
+                  }
+                }*@
+                <span class="cmd-prompt"
+                style="margin-left: 0px; visibility: visible;border:none;" @onkeydown="@KeyDown" @onkeypress="@KeyPress" tabindex="0" @ref="myDiv">
+                    <span data-text="@preCommandLine &nbsp;">
+                        <span class="cursor2__wrapper" @ref="commandLineRef">
+                            <!--js321&gt;&nbsp;-->
+                             <!--<div class="cursor2" >  </div>
+
+                             @preCommandLine@mergeString<div class="cursor2" style="left:@($"{intX.ToString(CultureInfo.InvariantCulture)}px")" >&nbsp; </div>
+                             -->
+                            <!--this-->
+                            <!--@preCommandLine@mergeString-->
+                                    @preCommandLine@for (int i = 0; i < MergeChars.Count(); i++) {
+                                        
+                                        @if(i == indexOfPosition){
+                                            <div class="charClass" id="charClass" style="display:inline;">@MergeChars[i]</div>    
+                                        } else{
+                                        <div  style="display:inline;">@MergeChars[i]</div>
+                                        }
+                                    }
+                            </span>
+                    </span>
+                </span>
+                       <!--
+                           this->
+                           @preCommandLine@mergeString<div class="cursor2" style="left:@($"{intX.ToString(CultureInfo.InvariantCulture)}px")" >&nbsp; </div></span>
+                        <div class="cmd-cursor-line" role="presentation" aria-hidden="true"><span></span><span class="cmd-cursor"
+                  style=""><span data-text="" class="end"><span>&nbsp;<span></span></span></span></span>
+              </div>-->
+            </div>
+            <!-- class="visually-hidden"  -->
+            <!-- <label 
+            
+            for="65wo2q">Clipbard textarea for jQuery Terminal</label>
+            <textarea autocapitalize="off" spellcheck="false" tabindex="1" class="cmd-clipboard"></textarea> -->
+            <!-- <textarea autocapitalize="off" spellcheck="false" id="65wo2q" tabindex="1" class="cmd-clipboard" data-cmd-prompt="js>&nbsp;"></textarea> -->
+            <div id="app">
+              
+            </div>
+
+          </div>
+        </div>
+         <div class="terminal-fill"></div> 
+          <div class="terminal-scroll-marker">
+          <div style="height:20px;height:calc(20px / var(--pixel-density, 1))"></div>
+        </div> 
+      </div>
+       <div class="terminal-font">&nbsp;</div>
+      <div class="terminal-pixel"></div>  
+    </div>
+ 
+    <div class="flicker">
+
+    </div>
+     <div class="scanlines" style="--time:15.6353;"></div> 
+  </div>
+

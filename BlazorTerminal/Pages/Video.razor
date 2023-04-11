@@ -1,0 +1,108 @@
+@page "/video"
+@using Tools
+
+  <div   style="z-index:1000;" >
+      <div id="terminal"  class="terminal">
+
+          <div style="z-index:100;" class="terminal-scroller">
+              <div class="terminal-wrapper">
+
+
+
+
+<div class="terminal-output" role="log">
+            <div data-index="0" role="presentation" aria-hidden="true">
+                @foreach (var item in this.welcomeString)
+                {
+                    <div class="WelcomeTitle">
+                        <span >
+                            @HtmlConvertString.TerminalStringToHtml(item)
+                        </span>
+                    </div>
+                }
+
+            </div>
+     
+            </div>
+
+
+                  
+                <video data-play="true" class="self" id="video" width="1050" style="background-color:black;">
+
+                </video>
+              </div>
+          
+
+               <div class="terminal-fill"></div> 
+          <div class="terminal-scroll-marker">
+          <div style="height:20px;height:calc(20px / var(--pixel-density, 1))"></div>
+        </div> 
+      </div>
+       <div class="terminal-font">&nbsp;</div>
+      <div class="terminal-pixel"></div>  
+    </div>
+ 
+    <div class="flicker"></div>
+     <div class="scanlines" style="--time:15.6353;"></div> 
+  </div>
+    
+            
+            
+ 
+
+@code{
+    private JsBridge? jsBridge = null; 
+    [Inject]
+    IJSRuntime? JSRuntime { get; set; }
+    public List<string> welcomeString = new List<string>();
+
+    protected override void OnInitialized(){
+             @* welcomeString.Add($"         ▄▄▄▄    ██▓     ▄▄▄      ▒███████▒ ▒█████   ██▀███      ▄████▄   ▄▄▄       ███▄ ▄███▓▓█████  ██▀███   ▄▄▄      ");
+                welcomeString.Add($"▓█████▄ ▓██▒    ▒████▄    ▒ ▒ ▒ ▄▀░▒██▒  ██▒▓██ ▒ ██▒   ▒██▀ ▀█  ▒████▄    ▓██▒▀█▀ ██▒▓█   ▀ ▓██ ▒ ██▒▒████▄    ");
+                welcomeString.Add($"▒██▒ ▄██▒██░    ▒██  ▀█▄  ░ ▒ ▄▀▒░ ▒██░  ██▒▓██ ░▄█ ▒   ▒▓█    ▄ ▒██  ▀█▄  ▓██    ▓██░▒███   ▓██ ░▄█ ▒▒██  ▀█▄  ");
+                welcomeString.Add($"▒██░█▀  ▒██░    ░██▄▄▄▄██   ▄▀▒   ░▒██   ██░▒██▀▀█▄     ▒▓▓▄ ▄██▒░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄ ▒██▀▀█▄  ░██▄▄▄▄██ ");
+                welcomeString.Add($"░▓█  ▀█▓░██████▒ ▓█   ▓██▒▒███████▒░ ████▓▒░░██▓ ▒██▒   ▒ ▓███▀ ░ ▓█   ▓██▒▒██▒   ░██▒░▒████▒░██▓ ▒██▒ ▓█   ▓██▒");
+                welcomeString.Add($"░▒▓███▀▒░ ▒░▓  ░ ▒▒   ▓▒█░░▒▒ ▓░▒░▒░ ▒░▒░▒░ ░ ▒▓ ░▒▓░   ░ ░▒ ▒  ░ ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░░ ▒▓ ░▒▓░ ▒▒   ▓▒█░");
+                welcomeString.Add($"▒░▒   ░ ░ ░ ▒  ░  ▒   ▒▒ ░░░▒ ▒ ░ ▒  ░ ▒ ▒░   ░▒ ░ ▒░     ░  ▒     ▒   ▒▒ ░░  ░      ░ ░ ░  ░  ░▒ ░ ▒░  ▒   ▒▒ ░");
+                welcomeString.Add($" ░    ░   ░ ░     ░   ▒   ░ ░ ░ ░ ░░ ░ ░ ▒    ░░   ░    ░          ░   ▒   ░      ░      ░     ░░   ░   ░   ▒   ");
+                welcomeString.Add($" ░          ░  ░      ░  ░  ░ ░        ░ ░     ░        ░ ░            ░  ░       ░      ░  ░   ░           ░  ░");
+                welcomeString.Add($"      ░                   ░                             ░                                                       "); *@
+
+
+@* welcomeString.Add($" .S_SSSs    S.       .S_SSSs     sdSSSSSSSbs    sSSs_sSSs     .S_sSSs            sSSs   .S_SSSs     .S_SsS_S.     sSSs   .S_sSSs     .S_SSSs    ");
+welcomeString.Add($".SS~SSSSS   SS.     .SS~SSSSS    YSSSSSSSS%S   d%%SP~YS%%b   .SS~YS%%b          d%%SP  .SS~SSSSS   .SS~S*S~SS.   d%%SP  .SS~YS%%b   .SS~SSSSS   ");
+welcomeString.Add($"S%S   SSSS  S%S     S%S   SSSS          S%S   d%S'     `S%b  S%S   `S%b        d%S'    S%S   SSSS  S%S `Y' S%S  d%S'    S%S   `S%b  S%S   SSSS  ");
+welcomeString.Add($"S%S    S%S  S%S     S%S    S%S         S&S    S%S       S%S  S%S    S%S        S%S     S%S    S%S  S%S     S%S  S%S     S%S    S%S  S%S    S%S  ");
+welcomeString.Add($"S%S SSSS%P  S&S     S%S SSSS%S        S&S     S&S       S&S  S%S    d*S        S&S     S%S SSSS%S  S%S     S%S  S&S     S%S    d*S  S%S SSSS%S  ");
+welcomeString.Add($"S&S  SSSY   S&S     S&S  SSS%S        S&S     S&S       S&S  S&S   .S*S        S&S     S&S  SSS%S  S&S     S&S  S&S_Ss  S&S   .S*S  S&S  SSS%S  ");
+welcomeString.Add($"S&S    S&S  S&S     S&S    S&S       S&S      S&S       S&S  S&S_sdSSS         S&S     S&S    S&S  S&S     S&S  S&S~SP  S&S_sdSSS   S&S    S&S  ");
+welcomeString.Add($"S&S    S&S  S&S     S&S    S&S      S*S       S&S       S&S  S&S~YSY%b         S&S     S&S    S&S  S&S     S&S  S&S     S&S~YSY%b   S&S    S&S  ");
+welcomeString.Add($"S*S    S&S  S*b     S*S    S&S     S*S        S*b       d*S  S*S   `S%b        S*b     S*S    S&S  S*S     S*S  S*b     S*S   `S%b  S*S    S&S  ");
+welcomeString.Add($"S*S    S*S  S*S.    S*S    S*S   .s*S         S*S.     .S*S  S*S    S%S        S*S.    S*S    S*S  S*S     S*S  S*S.    S*S    S%S  S*S    S*S  ");
+welcomeString.Add($"S*S SSSSP    SSSbs  S*S    S*S   sY*SSSSSSSP   SSSbs_sdSSS   S*S    S&S         SSSbs  S*S    S*S  S*S     S*S   SSSbs  S*S    S&S  S*S    S*S  ");
+welcomeString.Add($"S*S  SSY      YSSP  SSS    S*S  sY*SSSSSSSSP    YSSP~YSSY    S*S    SSS          YSSP  SSS    S*S  SSS     S*S    YSSP  S*S    SSS  SSS    S*S  ");
+welcomeString.Add($"SP                         SP                                SP                               SP           SP           SP                 SP   "); *@
+@* welcomeString.Add($"Y                          Y                                 Y                                Y            Y            Y                  Y    "); *@
+                                                                                                                                                
+
+
+welcomeString.Add($"d8888b. db       .d8b.  d88888D  .d88b.  d8888b.       .o88b.  .d8b.  .88b  d88. d88888b d8888b.  .d8b.   ");
+welcomeString.Add($"88  `8D 88      d8' `8b YP  d8' .8P  Y8. 88  `8D      d8P  Y8 d8' `8b 88'YbdP`88 88'     88  `8D d8' `8b ");
+welcomeString.Add($"88oooY' 88      88ooo88    d8'  88    88 88oobY'      8P      88ooo88 88  88  88 88ooooo 88oobY' 88ooo88 ");
+welcomeString.Add($"88~~~b. 88      88~~~88   d8'   88    88 88`8b        8b      88~~~88 88  88  88 88~~~~~ 88`8b   88~~~88 ");
+welcomeString.Add($"88   8D 88booo. 88   88  d8' db `8b  d8' 88 `88.      Y8b  d8 88   88 88  88  88 88.     88 `88. 88   88 ");
+welcomeString.Add($"Y8888P' Y88888P YP   YP d88888P  `Y88P'  88   YD       `Y88P' YP   YP YP  YP  YP Y88888P 88   YD YP   YP ");
+                                                                                                         
+                                                                                                         
+
+
+
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender){
+        if (firstRender){
+            jsBridge = new JsBridge(JSRuntime!);
+   //         jsBridge.AboutBox();
+            jsBridge.Camera2();
+        }
+    }
+}
